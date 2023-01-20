@@ -1,0 +1,41 @@
+auth/:
+  -
+    path: login
+    method: post
+    description: Login into system
+    middlewares: [guest]
+    produces:
+      - application/json
+    tags: [auth, user]
+    params:
+      email: email|required
+      password: string|required
+  -
+    path: register
+    middlewares: [guest]
+    description: User registration
+    tags: [auth, user]
+    produces:
+      - application/json
+    method: post
+    params:
+      email: email|required|unique:users
+      password: string|required
+      confirm: string|required
+  -
+    path: reset
+    middlewares: [guest]
+    tags: [auth, user]
+    method: post
+    params:
+      email: string|required
+tags/:
+  -
+    path: add
+    middlewares: [user]
+    tags: [tags]
+    method: post
+    params:
+      tag: string|required
+      object_id: string|required
+      object_type: string|required
